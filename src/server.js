@@ -3,25 +3,16 @@ require("dotenv").config({
 });
 
 const express = require("express");
-const execQuery = require("./services/execQuery");
-const getAll = require("./services/getAll");
-
-const app = express();
-
-app.use("/public", express.static(`${__dirname}/public`));
+const roteadorAlunos = require("./routes/AlunosRoutes");
+const roteadorStatic = require("./routes/StaticRoutes");
 
 const port = process.env.PORT;
+const app = express();
 
-(async () => await execQuery("INSERT INTO alunos VALUES ('otavio')"))();
-
-app.get("/", async function (req, res) {
-  res.sendFile(`${__dirname}/views/index.html`);
-});
-
-app.get("/alunos", async function (req, res) {
-  const alunos = await getAll();
-  console.log(alunos);
-});
+app.use(express.json());
+app.use("/public", express.static(`${__dirname}/public`));
+app.use(roteadorAlunos);
+app.use(roteadorStatic);
 
 app.listen(port, function () {
   console.log(`Servidor funcionando na porta ${port}`);
