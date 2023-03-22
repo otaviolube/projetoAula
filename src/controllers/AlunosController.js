@@ -1,8 +1,15 @@
 const deletarAluno = require("../services/AlunosServices/deletarAluno");
 const inserirAluno = require("../services/AlunosServices/inserirAluno");
+const listarAlunos = require("../services/AlunosServices/listarAlunos");
 
 class AlunosController {
   constructor() {}
+
+  async getAlunos(req, res) {
+    const alunos = await listarAlunos();
+    console.log(alunos);
+    res.end(JSON.stringify(alunos));
+  }
 
   async inserirAluno(req, res) {
     const aluno = req.body;

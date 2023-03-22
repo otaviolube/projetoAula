@@ -11,6 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/public", express.static(`${__dirname}/public`));
+
 app.use(roteadorAlunos);
 app.use(roteadorStatic);
 

@@ -1,14 +1,18 @@
 const { Router } = require("express");
-const getAll = require("../services/getAll");
-const inserirAluno = require("../services/AlunosServices/inserirAluno");
 const AlunosController = require("../controllers/AlunosController");
+const {
+  AuthMiddleware,
+  ManagerMiddleware,
+} = require("../middlewares/AuthMiddleware");
 
 const roteador = Router();
 
-roteador.get("/alunos", async function (req, res) {
-  const alunos = await getAll();
-  res.sendFile(`${__dirname}/views/index.html`);
-});
+roteador.get(
+  "/alunos",
+  AuthMiddleware,
+  ManagerMiddleware,
+  AlunosController.getAlunos
+);
 
 roteador.post("/aluno", AlunosController.inserirAluno);
 
