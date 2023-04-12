@@ -7,6 +7,10 @@ roteador.get("/", async function (req, res) {
   res.sendFile(`${BuildPath(__dirname)}/views/index.html`);
 });
 
+roteador.get("/login", async function (req, res) {
+  res.sendFile(`${BuildPath(__dirname)}/views/login.html`);
+});
+
 roteador.get("*", async function (req, res) {
   res.sendFile(`${BuildPath(__dirname)}/views/404.html`);
 });
